@@ -1,8 +1,5 @@
 from text_to_num import text2num
 
-word = input('Введите число на английском языке: ')
-number = text2num(word, 'en')
-
 
 def int_to_Roman(num):
     val = [
@@ -26,5 +23,16 @@ def int_to_Roman(num):
         i += 1
     return roman_num
 
+
+checker = True
+
+while checker:
+    try:
+        word = input('Введите число на английском языке: ')
+        if isinstance(word, str):
+            number = text2num(word, 'en')
+        checker = False
+    except ValueError:
+        print('Не верный ввод!')
 
 print(f'Число переведённое с английского - {number}.\nЧисло в римской системе - {int_to_Roman(number)}.')
