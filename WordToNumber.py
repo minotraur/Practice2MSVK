@@ -29,8 +29,7 @@ checker = True
 while checker:
     try:
         word = input('Введите число на английском языке: ')
-        if isinstance(word, str):
-            number = text2num(word, 'en')
+        number = text2num(word, 'en')
         checker = False
     except ValueError:
         print('Не верный ввод!')
