@@ -1,4 +1,5 @@
 from text_to_num import text2num
+from enchant.checker import SpellChecker
 
 
 def int_to_Roman(num):
@@ -32,6 +33,8 @@ while checker:
         number = text2num(word, 'en')
         checker = False
     except ValueError:
-        print('Не верный ввод!')
+        checker = SpellChecker("en_US")
+        checker.set_text(word)
+        print('Ошибка в слове: ' + ' '.join([i.word for i in checker]))
 
 print(f'Число переведённое с английского - {number}.\nЧисло в римской системе - {int_to_Roman(number)}.')
