@@ -1,7 +1,7 @@
 from tkinter import *
 
 
-def func():
+def func(event):
     first = first_word_ent.get()
     second = second_word_ent.get()
     line = "Васе сегодня в ларёк не завезли пиво"
