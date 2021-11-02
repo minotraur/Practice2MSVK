@@ -198,19 +198,52 @@ class Ui_MainWindow(object):
         self.labelErrorInWord.setText(_translate("MainWindow", ""))
 
     def converter(self):
-        self.word = self.lineEdit_enter.text().lower()
+        self.labelErrorInWord.clear()
+        self.ErrorInWord.clear()
+
+        self.labelTwoWordError.clear()
+        self.TwoWordError.clear()
+
+        self.word = self.lineEdit_enter.text().lower().strip().replace('  ', ' ')
 
         self.temp_word = self.word.split(' ')
 
-
+        self.words = ['une',
+                      'deux',
+                      'trois',
+                      'quatre',
+                      'cinq',
+                      'six',
+                      'Sept',
+                      'huit',
+                      'neuf',
+                      'dix',
+                      'onze',
+                      'douze',
+                      'treize',
+                      'quatorze',
+                      'quinze',
+                      'seize',
+                      'dix sept',
+                      'dix huit',
+                      'dix neuf',
+                      'vingt',
+                      'trente',
+                      'quarante',
+                      'cinquante',
+                      'soixante',
+                      'soixante dix',
+                      'quatre vingt',
+                      'quatre vingt dix',
+                      'cent',
+                      'mille', ]
 
         try:
             self.number = text2num(self.word, "fr")
         except ValueError:
             self.checker = SpellChecker(language='fr')
             for idx, word in enumerate(self.temp_word):
-                self.correct_word = self.checker.correction(self.word)
-                if word != self.correct_word:
+                if word not in self.words:
                     self.labelErrorInWord.setText('Ошибка в слове')
                     self.ErrorInWord.setText(word)
 
@@ -221,7 +254,6 @@ class Ui_MainWindow(object):
 
                 self.labelErrorInWord.clear()
                 self.ErrorInWord.clear()
-
 
         self.num_in_10cc.setText(str(self.number))
 
