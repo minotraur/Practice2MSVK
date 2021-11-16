@@ -1,3 +1,4 @@
+import re
 from text_to_num import text2num
 from spellchecker import SpellChecker
 from PyQt6 import QtCore, QtGui, QtWidgets
@@ -204,7 +205,7 @@ class Ui_MainWindow(object):
         self.labelTwoWordError.clear()
         self.TwoWordError.clear()
 
-        self.word = self.lineEdit_enter.text().lower().strip().replace('  ', ' ')
+        self.word = " ".join(re.split("\s+", self.lineEdit_enter.text(), flags=re.UNICODE))
 
         self.temp_word = self.word.split(' ')
 
