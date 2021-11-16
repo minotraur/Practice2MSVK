@@ -206,16 +206,18 @@ class Ui_MainWindow(object):
         self.TwoWordError.clear()
 
         self.word = " ".join(re.split("\s+", self.lineEdit_enter.text(), flags=re.UNICODE))
-
+        print(self.word)
+        print(type(self.word))
         self.temp_word = self.word.split(' ')
-
+        print(self.temp_word)
+        print(type(self.temp_word))
         self.words = ['une',
                       'deux',
                       'trois',
                       'quatre',
                       'cinq',
                       'six',
-                      'Sept',
+                      'sept',
                       'huit',
                       'neuf',
                       'dix',
