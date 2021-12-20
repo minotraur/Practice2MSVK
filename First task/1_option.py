@@ -1,6 +1,5 @@
 import re
 from text_to_num import text2num
-from spellchecker import SpellChecker
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
@@ -199,19 +198,20 @@ class Ui_MainWindow(object):
         self.labelErrorInWord.setText(_translate("MainWindow", ""))
 
     def converter(self):
+        # Очистка заголовка и ввода в окне
         self.labelErrorInWord.clear()
         self.ErrorInWord.clear()
 
+        # Очистка заголовков ошибок
         self.labelTwoWordError.clear()
         self.TwoWordError.clear()
 
-        self.word = " ".join(re.split("\s+", self.lineEdit_enter.text(), flags=re.UNICODE))
-        print(self.word)
-        print(type(self.word))
-        self.temp_word = self.word.split(' ')
-        print(self.temp_word)
-        print(type(self.temp_word))
-        self.words = ['une',
+        # Забирает из lineEdit введённое предложение и препразует чтобы не было лишних пробелов,
+        # пребразует в нижний регистр.
+        self.word = " ".join(re.split("\s+", self.lineEdit_enter.text(), flags=re.UNICODE)).lower()
+
+        self.words = ['un',
+                      'une',
                       'deux',
                       'trois',
                       'quatre',
@@ -231,35 +231,85 @@ class Ui_MainWindow(object):
                       'dix huit',
                       'dix neuf',
                       'vingt',
+                      'vingt et un',
+                      'vingt deux',
+                      'vingt trois',
                       'trente',
+                      'trente et un',
+                      'trente deux',
                       'quarante',
+                      'quarante et un',
+                      'quarante deux',
                       'cinquante',
+                      'cinquante et un',
+                      'cinquante deux',
                       'soixante',
+                      'soixante et un',
+                      'soixante deux',
                       'soixante dix',
-                      'quatre vingt',
+                      'soixante et onze',
+                      'soixante douze',
+                      'quatre vingts',
+                      'quatre vingt et un',
+                      'quatre vingt deux',
                       'quatre vingt dix',
+                      'quatre vingt onze',
+                      'quatre vingt douze',
                       'cent',
-                      'mille', ]
+                      'cent un',
+                      'cent deux',
+                      'cent dix',
+                      'cent vingt',
+                      'cent soixante dix',
+                      'cent soixante quinze',
+                      'cent soixante dix huit',
+                      'cent quatre vingts',
+                      'cent quatre vingts six',
+                      'cent quatre vingt dix',
+                      'cent quatre vingt dix sept',
+                      'deux cents',
+                      'deux cent un',
+                      'deux cent deux',
+                      'trois cents',
+                      'quatre cents',
+                      'cinq cents',
+                      'six cents',
+                      'sept cents',
+                      'huit cents',
+                      'neuf cents',
+                      'mille',
+                      'deux mille',
+                      'un million',
+                      'un milliardр', ]
 
         try:
             self.number = text2num(self.word, "fr")
         except ValueError:
-            self.checker = SpellChecker(language='fr')
-            for idx, word in enumerate(self.temp_word):
-                if word not in self.words:
-                    self.labelErrorInWord.setText('Ошибка в слове')
-                    self.ErrorInWord.setText(word)
+            words_with_error = list()
+            for i in range(len(self.word.split(' '))):
+                if self.word.split(' ')[i] not in self.words:
+                    words_with_error.append(self.word.split()[i])
+                    print('Ошибка в слове(ах): {}'.format(words_with_error))
+                    self.labelErrorInWord.setText('Ошибка в слове(ах)')
+                    self.ErrorInWord.setText((str(words_with_error)))
 
-        for curr, next in zip(self.temp_word, self.temp_word[1:]):
-            if curr == next:
-                self.labelTwoWordError.setText('Одинаковые слова')
-                self.TwoWordError.setText(f'{curr}')
+        self.er = []
+        for curr, next in zip(self.word.split(' '), self.word.split(' ')[1:]):
+            if curr in self.words[:9] and next in self.words[:9]:
+                self.labelTwoWordError.setText(
+                    'Единичный разряд ({})\nпосле единичного\nразряда ({})'.format(next, curr))
+                self.labelErrorInWord.clear()
+                self.ErrorInWord.clear()
 
+        for curr, next in zip(self.word.split(' '), self.word.split(' ')[1:]):
+            if curr in self.words[45:68] and next in self.words[45:68]:
+                self.labelTwoWordError.setText('Сотенный разряд ({})\nпосле сотенного\nразряда ({})'.format(next, curr))
                 self.labelErrorInWord.clear()
                 self.ErrorInWord.clear()
 
         self.num_in_10cc.setText(str(self.number))
 
+        # Преобразование в римское число.
         self.val = [
             1000, 900, 500, 400,
             100, 90, 50, 40,
