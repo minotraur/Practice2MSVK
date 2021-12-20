@@ -1,9 +1,11 @@
 from tkinter import *
+from tkinter import messagebox
 
 
 def func(event):
     first = first_word_ent.get()
     second = second_word_ent.get()
+    line = "Васе сегодня в ларёк не завезли пиво"
 
     if not first and not second:
         lab['text'] = 'Вы не ввели слова'
@@ -12,8 +14,11 @@ def func(event):
     elif not second:
         lab['text'] = 'Вы не ввели второе слово'
 
+    if first not in line.split(' '):
+        messagebox.showinfo("Ошибка", "Вы ввели слова не содердащиеся в указанной строке!")
+
     if first and second:
-        line = "Васе сегодня в ларёк не завезли пиво"
+
         words = line.split(' ')
         some_word = None
         some_word2 = None

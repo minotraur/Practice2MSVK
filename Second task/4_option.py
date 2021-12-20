@@ -69,24 +69,32 @@ class Ui_MainWindow(object):
         self.string_1 = self.lineEdit.text().strip().replace('  ', ' ').split(' ')
         self.string_2 = self.lineEdit_2.text().strip().replace('  ', ' ').split(' ')
 
-        self.new_mas = []
+        if self.string_1 == [''] and self.string_2 == ['']:
+            self.result.setText('Вы ничего не ввели!')
+        elif self.string_1 == ['']:
+            self.result.setText('Вы не заполнили первый ввод')
+        elif self.string_2 == ['']:
+            self.result.setText('Вы не заполнили второй ввод')
+        else:
 
-        self.index_from_string2 = 1
-        self.i = 0
-        self.length_string2 = len(self.string_2)
+            self.new_mas = []
 
-        while self.length_string2 != 0:
-            self.string_1.insert(self.index_from_string2, self.string_2[self.i])
-            self.i += 1
-            self.index_from_string2 += 2
-            self.length_string2 -= 1
+            self.index_from_string2 = 1
+            self.i = 0
+            self.length_string2 = len(self.string_2)
 
-        an = len(self.string_1) - 1
-        while an != -1:
-            self.new_mas.append(self.string_1[an])
-            an -= 1
+            while self.length_string2 != 0:
+                self.string_1.insert(self.index_from_string2, self.string_2[self.i])
+                self.i += 1
+                self.index_from_string2 += 2
+                self.length_string2 -= 1
 
-        self.result.setText(' '.join(self.new_mas))
+            an = len(self.string_1) - 1
+            while an != -1:
+                self.new_mas.append(self.string_1[an])
+                an -= 1
+
+            self.result.setText(' '.join(self.new_mas))
 
 
 if __name__ == "__main__":
