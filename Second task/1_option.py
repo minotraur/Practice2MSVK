@@ -7,6 +7,8 @@ def func(event):
     second = second_word_ent.get()
     line = "Васе сегодня в ларёк не завезли пиво"
 
+
+
     if not first and not second:
         lab['text'] = 'Вы не ввели слова'
     elif not first:

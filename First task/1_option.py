@@ -307,6 +307,18 @@ class Ui_MainWindow(object):
                 self.labelErrorInWord.clear()
                 self.ErrorInWord.clear()
 
+        for curr, next in zip(self.word.split(' '), self.word.split(' ')[1:]):
+            if curr in self.words[45:68] and next in self.words[:9]:
+                self.labelTwoWordError.setText('Сотенный разряд ({})\nперед единичным\nразрядом ({})'.format(next, curr))
+                self.labelErrorInWord.clear()
+                self.ErrorInWord.clear()
+
+        # for curr, next in zip(self.word.split(' '), self.word.split(' ')[1:]):
+        #     if curr in self.words[:9] and next in self.words[45:68]:
+        #         self.labelTwoWordError.setText('Сотенный разряд ({})\nпосле десятичного\nразряда ({})'.format(next, curr))
+        #         self.labelErrorInWord.clear()
+        #         self.ErrorInWord.clear()
+
         self.num_in_10cc.setText(str(self.number))
 
         # Преобразование в римское число.
