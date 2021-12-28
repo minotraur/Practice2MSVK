@@ -66,8 +66,12 @@ class Ui_MainWindow(object):
         self.label_result.setText(_translate("MainWindow", "Результат"))
 
     def some_work_lol(self):
-        self.string_1 = self.lineEdit.text().strip().replace('  ', ' ').split(' ')
-        self.string_2 = self.lineEdit_2.text().strip().replace('  ', ' ').split(' ')
+        self.string_1 = ' '.join(self.lineEdit.text().split()).strip().lower().split(' ')
+        self.string_2 = ' '.join(self.lineEdit_2.text().split()).strip().lower().split(' ')
+
+
+       # self.string_1 = self.lineEdit.text().strip().replace('  ', ' ').split(' ')
+       # self.string_2 = self.lineEdit_2.text().strip().replace('  ', ' ').split(' ')
 
         if self.string_1 == [''] and self.string_2 == ['']:
             self.result.setText('Вы ничего не ввели!')
